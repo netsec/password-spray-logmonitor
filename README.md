@@ -12,7 +12,7 @@ The script is not efficient as it stands. A work in progress.
 
 ## Core Commands Used
 
-A list of usernames is grep'd from the ```/etc/passwd``` file. The script greps for any users with a ```/home``` directory assigned, thus attempting to filter out system users. This can easily be replaced with something like ```getent``` which would also return usernames of users within LDAP, for example.  
+A list of usernames is grep'd from the ```/etc/passwd``` file. The script filters user from system accounts based on UID. This can easily be replaced with something like ```getent``` which could be configured to return usernames of users within LDAP, for example.  
 
 Failed login attempts are extracted from the ```/var/log/btmp``` logfile using the ```lastb``` command, remembering to pass the ```-w``` option to return the username in **full** for matching to the list of usernames described above. 
 

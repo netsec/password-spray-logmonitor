@@ -2,6 +2,13 @@
 # Simple script to look for attempted password spraying attacks
 # The script tallies a count of failed login attempts for all users and date of last failed login.
 
+# Check if the user has root privileges to run the script
+if [[ "${UID}" -ne 0 ]]
+then
+  echo 'ERROR: passwordFailMonitor requires root privileges to run.' >&2
+  exit 1
+fi
+
 # Get failed user logins from logs, list of users from etc/passwd
 LOGFILE=/var/log/btmp
 PASSWD=/etc/passwd
@@ -14,8 +21,8 @@ OUTPUT=""
 
 # Launch subshell
 {
-  # Loop over each username on the system
-  for USR in $(grep -E '/home/' "${PASSWD}" | cut -d':' -f 1 | sort)
+  # Loop over each username on the system, fliter user from system accounts based on UID > 999
+  for USR in $(cut -d':' -f 1,3 ${PASSWD} | awk -F ':' '$2>999 { print $1 }')
   do
     # Check if the user is also in the logfile with failed login attempts
     if [[ -z $(grep "${USR}" "${LOGFILE}") ]]
