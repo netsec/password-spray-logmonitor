@@ -22,7 +22,7 @@ As the script is reading from ```/etc/passwd``` and ```/var/log/btmp``` it requi
 
 THe script could be run using something like the ```watch``` command. 
 
-E.g. ```>>>sudo watch ./passwordFailsMonitor.sh``` (by default will re-run the script every two seconds) 
+E.g. ```>$ sudo watch ./passwordFailsMonitor.sh``` (by default will re-run the script every two seconds) 
 
 ## Built With
 
